@@ -1,0 +1,79 @@
+<?php
+if(!isset($argv[1])){
+    echo "please specify the parameters!";
+    die;
+}
+echo "Initializing Discord Bot kernel Version Alpha 0.0.4\n";
+
+function unset_array_merge($arr, $key){
+    unset($arr[$key]);
+    return array_merge($arr);
+   
+}
+function dd($stream){
+    var_dump($stream);
+    die;
+}
+
+$argv = unset_array_merge($argv, 0);
+
+function createcommand($argv){
+    $unixfirstdir = exec("pwd");
+    $firstdir = __DIR__;
+
+    $exec = null;
+    
+    $unixtargetdir = "Bot/Commands";
+
+    $targetdir = "Bot\Commands";
+    echo $targetdir."\n";
+    chdir("Bot\Commands");
+    $create_c = null; $create_p = null; $on_c = null;
+    foreach($argv as $arg){
+        switch ($arg) {
+            case 'createcommand':
+                $key = array_search('createcommand',$argv) + 1;
+                $create_c = "touch " . $argv[$key] . ".php\n echo '<?php\n class $argv[$key]{' >> " . $argv[$key] . ".php";
+                break;
+            case '--with-part':
+                $key = array_search('createcommand',$argv) + 1;
+                $create_p = "mkdir Parts\ncd Parts\ntouch " . $argv[$key] . "Part.php";
+
+                break;
+            case "--on-category":
+                $key = array_search('--on-category',$argv) + 1;
+                $on_c = "mkdir " . $argv[$key] . "\ncd " . $argv[$key];
+                break;
+            default:
+               
+                
+            
+        }
+    }
+
+    
+    $exec .= "$on_c\n$create_c\n$create_p";
+
+    chdir($firstdir);
+    $file = "cache/kernel/kernelbatch.sh";
+    file_put_contents($file, "#!/bin/bash\n".$exec);
+
+    $sript = "bash $unixfirstdir/" ."$file";
+    chdir($targetdir);
+    exec($sript);
+        //exec("cat $firstdir/cache/kernel/construct.txt >> $firstdir/cache/kernel/kernelbatch.sh");
+
+    
+}
+
+function help(){
+    echo "Bot kernel Version Alpha 0.0.4 Help lists
+    
+    Kernel Command lists :
+    [] <- ? inside of a square brackets example below its an optional parameter
+
+    1 . create a command  : 'php kernel createcommand <command_name> [ --with-part ] [--on-category <category_name>]'";
+}
+//var_dump($argv);
+call_user_func($argv[0], $argv);
+

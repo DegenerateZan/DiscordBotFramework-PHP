@@ -1,0 +1,11 @@
+echo '    private $discord,
+            $message;
+
+    public function __construct(Discord $discord,$message){
+        $this->discord = $discord;
+        $this->message = $message;
+        //your custom constructor here
+    }
+
+
+} ' 
