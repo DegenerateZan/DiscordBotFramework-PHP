@@ -1,10 +1,9 @@
 <?php
 
 include 'config.php';
-include __DIR__.'/vendor/autoload.php';
+
 include 'functions/functions.php';
 
-require_once "key.php";
 require MAINBOT."MainController.php";
 
 use Discord\Discord;

@@ -66,6 +66,10 @@ function createcommand($argv){
     
 }
 
+function serve(){
+    exec("start.sh");
+}
+
 function help(){
     echo "Bot kernel Version Alpha 0.0.4 Help lists
     

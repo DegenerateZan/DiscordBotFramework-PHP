@@ -1,4 +1,5 @@
 key.txt
+.env
 composer.lock
 owner.txt
 vendor/

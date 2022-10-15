@@ -1,6 +1,3 @@
 #!/bin/bash
-
-php init.php
-
-wait 5
-php initCrashhandler.php
+php initCrashHandler.php & > /dev/null 2&>cache/script.log
+php init.php & > /dev/null 2&>cache/script.log

@@ -83,9 +83,8 @@ use Discord\Parts\Channel\Message;
        
     }
     private function sendResult(){
-        $this->message->delete();
         $this->updated_mess->channel->sendMessage($this->builder)->done(function(){
-            
+            $this->updated_mess->delete();
         });
 
     }

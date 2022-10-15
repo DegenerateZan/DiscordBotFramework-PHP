@@ -1,9 +1,5 @@
 <?php
 
-include __DIR__.'/vendor/autoload.php';
-
-require_once "key.php";
-
 require "config.php";
 
 function getnumberfromstring($string){
