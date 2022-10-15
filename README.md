@@ -2,7 +2,7 @@
 
 a Simple Discord Bot Framework with Crash handler made using PHP
 <br>Supperted (only) message intent<br>
-not supported  - 1 . slash command
+not supported  - 1 . slash command (soon)
 <h3>How to install?</h3>
 required  - PHP 7.4 or recommended 8.0 or greater
           - Composer
