@@ -6,5 +6,10 @@ not supported  - 1 . slash command (soon)
 <h3>How to install?</h3>
 required  - PHP 7.4 or recommended 8.0 or greater
           - Composer
+          - Recommended Linux (if you're using windows, the Crash handler feature would not be supported)
           
-install the vendor detail can be seen on Official Discord-PHP github https://github.com/discord-php/DiscordPHP
+install the vendor 
+and start using  ``` php kernel serve ``` <b>(only on linux)</b>
+<b>in windows this bot DO NOT SUPPORT Crash Handler and execute kernel mode</b> 
+and can only run independent without crash handler feature using ``` php init.php ``` to run 
+Further detail can be seen on Official Discord-PHP github https://github.com/discord-php/DiscordPHP
