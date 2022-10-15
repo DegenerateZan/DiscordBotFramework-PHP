@@ -11,7 +11,7 @@ require MAINBOT."Extensions/Fstream.php";
 require MAINBOT."Extensions/MiniMessageHandler.php";
 
 
-// this is Beta Version of the Main Controller 
+ 
 class MainController {
     private $discord,
             $ins_key = 0,

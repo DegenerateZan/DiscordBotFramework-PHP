@@ -1,4 +1,6 @@
 <?php
+
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') die("Windows Platform Detected, sorry this command only supported on linux");
 if(!isset($argv[1])){
     echo "please specify the parameters!";
     die;
