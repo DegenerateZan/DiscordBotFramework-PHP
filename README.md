@@ -11,6 +11,6 @@ required  - PHP 7.4 or recommended 8.0 or greater
 
 install the vendor using ``` ./scripts/buildvendor.sh ```
 and start the bot using  ``` php kernel serve ``` <b>(only on linux)</b><br>
-<b>in windows this bot DO NOT SUPPORT Crash Handler and execute kernel mode</b> <br>
+<b>in windows this bot DOES NOT SUPPORT Crash Handler feature and execute kernel script</b> <br>
 and can only run independent without crash handler feature using ``` php init.php ``` in order to run the bot <br>
-Further detail can be seen on Official Discord-PHP github https://github.com/discord-php/DiscordPHP
+Further detail about the library can be seen on Official Discord-PHP github https://github.com/discord-php/DiscordPHP
