@@ -2,27 +2,6 @@
 
 require "config.php";
 
-function getnumberfromstring($string){
-    //preg_match_all('!\d+!', $string, $matches);
-    return (preg_match('#[0-9]#',$string)) ? true : false;
-
-}
-
-function var_dumps_new_lines(...$stream){
-    $i = 1;
-    foreach($stream as $a){
-
-        echo "Debug Variable Dump number $i\n";
-        var_dump($stream);
-        $i++;
-    }
-}
-
-function newlines($string){
-    echo str_repeat("\n", 5);
-    echo "========== EXECUTING $string ==========";
-    echo str_repeat("\n", 5);
-}
 
 function getsystemlog(){
    
@@ -31,11 +10,21 @@ function getsystemlog(){
 
     $fail = array(false, NULL, NULL); // nilai gagal
     
-    // $pid = fread(fopen("cache/pidbot.txt", 'r'),1000);
-    // if(!$pid) return $fail;
+    $pid = (int) fread(fopen("cache/pidbot.txt", 'r'),1000);
+
+    if(!$pid or $log === null) return $fail;
+    $pid = $pid - 1;
     //jika process mati 
-    //if(!getnumberfromstring(exec("pid -p $pid"))) return $fail;
-    /*else*/ return array(true, $json, $log);
+    $output = exec("ps -p $pid");
+    
+    // if(getnumberfromstring($output)) echo "\nNUMBER FOUND\n";
+    // else echo "\nNUMBER NOT FOUND\n";
+  
+    if(getnumberfromstring($output)) return $fail; // if the process found return fail and skip the send Message Procedure
+    else{ 
+        if($json === null) die("Main Bot Process has died!\nBut cannot get the last message Command detail\nThis Died Process can be caused by the Framework Exception or incorrectly Custom Command coding structure doesn't follow framework structure rules! ");
+        return array(true, $json, $log);
+    }
     
 }
 
@@ -52,38 +41,49 @@ $discord = new Discord([
     'token' => getkey(),
     'loop' => Loop::get()
 ]);
-$con = true;
-$discord;
+
 $discord->on('ready', function (Discord $discord){
     echo "Crash Handler Siap Digunakan";
+        
+        $discord->loop;
+        $discord->on('message', function(Message $message) {
+            if ($message->author->id == OWNER and $message->content == "System::kernel->restart(MAINBOT)"){
+                $log = getsystemlog();
+                if ($log[0]){
+                    $message->react("❌");
+                    $message->reply("Main Bot Instance is still running!")->done(function(Message $m){
+                        sleep(2);
+                        $m->delete();
+                    });
+                } else {
+                    $o =exec("bash scripts/start_init.sh");
+                    echo $o . PHP_EOL;
+                    $message->react("✅");
+
+                }
+            }
+        });
+        
         $loop = $discord->getLoop();
-        global $discord;
-        $discord = $discord; 
-
-        global $con;
-        
-        while ($con){
-            $con = false;
-            if (getsystemlog()[0] === NULL) goto skip;
-            $get = getsystemlog();
-            $json = $get[1]; $log = $get[2];
-            $handler = new Handler($discord, $json, $log);
-            // ob_start();
-            // var_dump($handler);
-            // $dump = ob_flush();
-            // file_put_contents("log.txt", $dump);
+        $loop->addPeriodicTimer(3,function () use ($discord) {
+            exec("rm -rf cache/temp/*.*");
+            $log = getsystemlog();
+         
+            if ($log[0] === FALSE) goto skip;
             
+            $json = $log[1]; $log = $log[2];
+            $handler = new Handler($discord, $json, $log);
+            truncate();
+            truncate_log();
             skip:
-            sleep(10);
-            $con = true;
+            
+            
 
-        };
-
-
-        
-        
+       
+    });
     
 });
+
 
 $discord->run();
 

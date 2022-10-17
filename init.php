@@ -1,8 +1,7 @@
-<?php
 
 include 'config.php';
 
-include 'functions/functions.php';
+truncate();
 
 require MAINBOT."MainController.php";
 

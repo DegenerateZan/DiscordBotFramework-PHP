@@ -33,18 +33,8 @@ class Logger {
     
 
     $json = json_encode($log);
-    Fstream::Fwrite(ROOT."cache/system.crash.jsonc", $json);
+
+    Fstream::Fwrite("cache/system.crash.jsonc", $json);
 
     }
 }
-
-// $template = '{   
-    
-//     "command_type" : "", //internal atau External
-//     "command" : "r!InjectPHP", // command yang diminta
-//     "guild_id" : "990766953230659675", // server id
-//     "channel_id": "990775255293382667", // channel id
-//     "message_id" : "1026090341331386378",  // string datatype
-//     "requested_by" : "599926912193921036", //id user
-//     "last_time_execution" : "[12:10:48] 07-10-2022 " // date datatype
-// }';

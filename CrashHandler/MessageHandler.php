@@ -33,8 +33,11 @@ class MessageHandler extends MessageHandlerPart{
     }
 
 
+
+
     public function sendwarning(){
-        $this->message->reply($this->message_builder)->done(function (){
+        $this->channel->sendMessage($this->message_builder)->done(function (){
+        //$this->message->reply($this->message_builder)->done(function (){
             global $con;
             $con = true;
         });

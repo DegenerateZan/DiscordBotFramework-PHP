@@ -28,39 +28,73 @@ class Handler extends HandlerPart{
         self::parse_json();
         self::getguild();
         self::getchannel();
-        self::getmessage();
-        // self::getuser();
-        //self::initMessage();
+        //self::getmessage();
+        self::getuserbyid();
+        //self::getuser();
+        //self::initMessage(); Commented!, i should wait the user's object promise to be finished
 
     }
-
-    // fetch the server's object
+    /**
+     * fetch the server's object
+     *Warning! : required server_id
+     */
+    // 
     private function getguild()
     {
         $this->guild = $this->discord->guilds->get('id', $this->data->guild_id);
         
     }
-
+    /**
+     * fetch the channel object,
+     * Warning! : required channel_id
+     */
+    // 
     private function getchannel(){
         $this->channel = $this->discord->getChannel($this->data->channel_id);
+        
         
 
     }
 
-    //fetch the message object from the 
-    private function getmessage(){
+        /**
+     * 
+     * fetch the requester's (user) object using an guild object
+     * @return $this
+     */
+    //
+    public function getuserbyid(){
+        $discord = $this->discord;
+        //$discord->guilds->get('id', $this->data->guild_id)
+            $this->guild->members->fetch($this->data->requested_by)->then( function (Member $Member){
+                $this->requsted_user = $Member;
+                self::initMessage();
+            });
+    }
 
+            /**
+     * 
+     * fetch the message by id using an channel object
+     * WARNING THIS FUNCTION IS BROKEN ON LATEST DISCORD PHP Causing an infinite loop of queeing
+     * , Warning : Required an $message object!
+     */
+    //
+    private function getmessage(){  
+        echo PHP_EOL. "initialize get message".PHP_EOL;
         $this->channel->messages->fetch($this->data->message_id)->done(function(Message $message){
             $this->message = $message;
+            dd($message);
             self::getuser();
         });
     }
 
-    // fetch the rezuester's (user) object using the message id
+    /** 
+    *fetch the requester's (user) object from an message object's properties
+    * @return $this
+    */
     public function getuser(){
         $this->requsted_user = $this->message->author;
         self::validateObjects();
-        self::initMessage();
+        
     }
 
     public function initMessage(){
@@ -71,7 +105,7 @@ class Handler extends HandlerPart{
         $arr = [$this->discord, $this->data,
         $this->guild,
         $this->channel,
-        $this->message,
+        //$this->message,
         $this->requsted_user];
         $i = 1;
         foreach($arr as $a){

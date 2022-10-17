@@ -23,19 +23,6 @@ class HandlerPart {
     
     }
 
-    /**
-     * @deprecated
-     *
-     * @return $this
-     */
-    // fetch the rezuester's (user) object
-    public function getuserbyid($id){
-        $discord = $this->discord;
-        $discord->guilds->get('id', $this->data->guild_id)
-            ->members->fetch($this->data->requested_id)->then( function (Member $Member){
-                $this->requsted_user = $Member;
 
-            });
-    }
 
 }

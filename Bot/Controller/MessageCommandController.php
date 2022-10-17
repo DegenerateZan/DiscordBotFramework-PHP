@@ -3,9 +3,10 @@
 
 require MAINBOT."Commands/misc/Ping.php";
 require MAINBOT."Commands/misc/Speedtest.php";
+require MAINBOT."Commands/misc/Eval.php";
 use Discord\Parts\Channel\Message;
 
-class CommandController {
+class MessageCommandController {
     private $discord,
             $message,
             $core,
@@ -26,7 +27,7 @@ class CommandController {
     }
 
     private function runCustomMethod(){
-        if(!array_key_exists(1,$this->content_pieces)) $this->content_pieces[1] = "";
+        if(!array_key_exists(1,$this->content_pieces)) $this->content_pieces[1] = ""; // to prevent the error of an undefined array key
 
         if(!method_exists($this->object, $this->content_pieces[1])) $this->object->init();
         if (method_exists($this->object, $this->content_pieces[1]))call_user_func(array($this->object, $this->content_pieces[1]));  //check if the method instance
@@ -63,6 +64,7 @@ class CommandController {
 
         $ids = json_decode($stream);
         $ids = $ids->specials;
+        $pass = array(true, "");
         switch ($object->privilege) {
             case 'public':
                 $result = array(true, "");
@@ -70,15 +72,15 @@ class CommandController {
 
             case 'specials':
                 foreach ($ids as $id) {
-                    if ($id == $this->message->author->id) $result = array(true, "");
+                    if ($id == $this->message->author->id) $result = $pass;
                     else $result = array(false, "This command can only be executed by Permitted users");
                 }
-                if (OWNER == $this->message->author->id) $result = array(true, "");
+                if (OWNER == $this->message->author->id) $result = $pass;
                 
                 break;  
             case 'owner':
 
-                    if (OWNER == $this->message->author->id) $result = array(true, "");
+                    if (OWNER == $this->message->author->id) $result = $pass;
                     else $result = array(false, "This command can only be executed by Owner of the Bot");
                     break;
 

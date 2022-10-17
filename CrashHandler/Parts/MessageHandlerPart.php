@@ -3,6 +3,8 @@
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
 
+require MAINBOT."Extensions/Fstream.php";
+
 class MessageHandlerPart{
     public $reason;
     public $embed,
@@ -61,7 +63,9 @@ class MessageHandlerPart{
             $message_builder->setContent("mencoba memuntahkan crash log\n```$this->log```") ;
             $message_builder->setContent($this->reason)->addEmbed($this->embed);
         }else{
-            $message_builder->setContent("mencoba memuntahkan crash log")->addFile("system.crash.log");
+            $cache_loc = "cache/temp/system.crash.log";
+            Fstream::Fwrite($cache_loc, $this->log);
+            $message_builder->setContent("mencoba memuntahkan crash log")->addFile($cache_loc);
             $message_builder->setContent($this->reason)->addEmbed($this->embed);
     }
 

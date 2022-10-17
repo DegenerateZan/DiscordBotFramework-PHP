@@ -1,5 +1,7 @@
 <?php 
 
+include 'functions/functions.php';
+
 include __DIR__.'/vendor/autoload.php';
 if(!file_exists(".env")) die(".env file does not exist!,\nplease copy the or rename .env.example and fill the data!");
 

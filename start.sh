@@ -1,3 +1,9 @@
 #!/bin/bash
-php initCrashHandler.php & > /dev/null 2&>cache/script.log
-php init.php & > /dev/null 2&>cache/script.log
+rm cache/pidbot.txt
+php init.php & > /dev/null & echo $! >cache/pidbot.txt
+echo PID : $!
+
+
+
+sleep 15
+php initCrashHandler.php 

@@ -7,7 +7,8 @@ use Discord\Parts\Channel\Message;
 
  class Speedtest{
     public  $type = "Internal",
-            $privilege = "public";
+            $privilege = "public",
+            $permitted_cmd_type = "message";
     private $discord,
             $message,
             $updated_mess,

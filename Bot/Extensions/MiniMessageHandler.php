@@ -5,9 +5,8 @@ use Discord\Parts\Channel\Message;
 
 class MiniMessHandler{
 
-    /* 
-    a standalone send message to a channel of a message
-
+    /**
+    *a standalone send message to a channel of a message
     */
     public static function sendMess(Message $message, $message_content){
         if(strlen($message_content) < 1) return;
