@@ -35,7 +35,7 @@ class MessageHandlerPart{
         $embed = new Embed($this->discord);
         $embed 
                 ->setType("rich")
-                ->setDescription("Crash Handler V 1.0")
+                ->setDescription("Crash Handler V 1.2")
                 ->setColor("0x070d0e")
                 ->addField([
                     "name"=> "Perintah yang digunakan",
@@ -63,6 +63,7 @@ class MessageHandlerPart{
             $message_builder->setContent("mencoba memuntahkan crash log\n```$this->log```") ;
             $message_builder->setContent($this->reason)->addEmbed($this->embed);
         }else{
+            $this->log = str_replace(getkey(), "TOKEN" ,$this->log);
             $cache_loc = "cache/temp/system.crash.log";
             Fstream::Fwrite($cache_loc, $this->log);
             $message_builder->setContent("mencoba memuntahkan crash log")->addFile($cache_loc);
