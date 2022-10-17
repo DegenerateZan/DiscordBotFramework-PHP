@@ -2,7 +2,9 @@
 
 use Discord\Parts\Channel\Message;
 
-
+    /**
+    *a standalone send message
+    */
 class MiniMessHandler{
 
     /**

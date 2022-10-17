@@ -5,8 +5,8 @@ use Discord\Parts\Channel\Message;
 use Discord\Parts\User\Activity;
 
 //CommandControllers
-require MAINBOT.'Controller/MessageCommandController.php';
-require MAINBOT.'Controller/SlashCommandController.php';
+require MAINBOT.'Controllers/MessageCommandController.php';
+require MAINBOT.'Controllers/SlashCommandController.php';
 // Core
 require MAINBOT.'Core/Logger.php';
 require MAINBOT.'Core/Time.php';
@@ -30,14 +30,14 @@ class MainController {
             self::setPresence();
             self::loadPrefix();
     }
-    public function setCore(){
+    private function setCore(){
         $this->core['time'] = (object) new Time();
         $this->core['settings'] = (object) json_decode(file_get_contents(MAINBOT."Config/botsettings.json"));
         //Fstream::Fwrite(ROOT."cache/pidbot.txt",getmypid()); //im mistaken that i thought that the pid is changed after the disocord event loop is executed
         if (!isset($this->core['settings']->prefix)) throw new Exception("Cannot Get the default Prefix!\n");
         
     }
-    public function setPresence(){
+    private function setPresence(){
 
         $discord = $this->discord;
         $activity = new Activity($discord, [
@@ -54,7 +54,7 @@ class MainController {
         if($ins[$this->ins_key]->destroy) $ins[$this->ins_key] = null;
         $this->ins_key++;
     }
-    public function loadPrefix(){
+    private function loadPrefix(){
         $this->prefix = $this->core['settings']->prefix;
     }
 
@@ -78,7 +78,7 @@ function maincontroller($discord){
         
         
         
-        echo "++++++++++++++++ PREFIX DETECTED, EXECUTING COMMAND ++++++++++++++++\n";            
+        echo "\n++++++++++++++++ MESSAGE COMMAND PREFIX DETECTED, EXECUTING COMMAND ++++++++++++++++\n";            
 
         $content = trim($content, $maincontroller->prefix);
         $maincontroller->initMessCommandController($message, $content);

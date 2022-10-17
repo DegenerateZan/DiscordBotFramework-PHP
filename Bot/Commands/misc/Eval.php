@@ -1,6 +1,6 @@
 <?php
 
- class Crash{
+ class evalphp{
     public  $type = "External",
             $privilege = "owner",
             $permitted_cmd_type = "message";
@@ -16,7 +16,15 @@
         
     }
     public function go(){
-        eval($this->message->content);
+
+        //eval($parsed_code);
+    }
+    public function validate(){
+        try{
+            //eval($parsed_code);
+        } catch (Exception $e){
+
+        }
     }
 
 }

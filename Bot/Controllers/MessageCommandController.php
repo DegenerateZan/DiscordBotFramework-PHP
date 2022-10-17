@@ -6,6 +6,9 @@ require MAINBOT."Commands/misc/Speedtest.php";
 require MAINBOT."Commands/misc/Eval.php";
 use Discord\Parts\Channel\Message;
 
+/**
+ * a Command controller for Discord message based type Command
+ */
 class MessageCommandController {
     private $discord,
             $message,
