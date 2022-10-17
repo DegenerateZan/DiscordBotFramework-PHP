@@ -1,6 +1,6 @@
 <?php
 
- class Evaluate{
+ class Crash{
     public  $type = "External",
             $privilege = "owner",
             $permitted_cmd_type = "message";
