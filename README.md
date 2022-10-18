@@ -3,10 +3,15 @@
 a Simple Discord Bot Framework with Crash handler made using PHP<br>
 <br>Supperted (only) message intent<br>
 not supported  - 1 . slash command (soon)<br>
-<h3>How to install?</h3><br>
+<h3>Requirements<h3>
+required  - PHP 7.4 or recommended 8.0 or greater<br>
+          - Composer<br>
+          - Recommended Linux (if you're using windows, the Crash handler feature would not be supported)<br>
+          
+<h3>How to Install?</h3><br>
 install the vendor using ``` composer require update ```<br>
 Copy and rename .env.example to .env and fill the data<br>
-and start the bot using  ``` php kernel serve ``` <b>(only on linux)</b><br>
-<b>in windows this bot DOES NOT SUPPORT Crash Handler feature and execute kernel script</b> <br>
+and start the bot using  ``` php kernel serve ``` <b>(only on linux)
+<b>in windows this bot DOES NOT SUPPORT Crash Handler feature and the execute kernel script <br>
 and can only run independent without crash handler feature using <br>``` php init.php ``` in order to run the bot <br>
 Further detail about the library can be seen on Official Discord-PHP github https://github.com/discord-php/DiscordPHP
