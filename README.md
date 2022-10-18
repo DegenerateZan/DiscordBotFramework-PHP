@@ -1,6 +1,6 @@
 <img src="https://cdn.discordapp.com/attachments/997562428529328188/1027912099848007680/Framework_Logo.png" width="80"> # <b>DiscordBotFramework-PHP</b>
 
-a Simple Discord Bot Framework with Crash handler made using PHP<br>
+a <strike>Simple</strike> Discord Bot Framework with Crash handler made using PHP<br>
 <br>Supperted (only) message intent<br>
 not supported  - 1 . slash command (soon)<br>
 ## Getting Started
