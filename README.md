@@ -13,5 +13,5 @@ install the vendor using ``` composer require update ```<br>
 Copy and rename the .env.example to .env and fill the data<br>
 and start the bot using  ``` php kernel serve ``` <b>(only on Linux)
 <b>in windows this bot DOES NOT SUPPORT Crash Handler feature and the execute kernel script <br>
-and can only run independent without crash handler feature using <br>``` php init.php ``` to run the bot <br>
+and can only run independent without crash handler feature using <\b> <br>``` php init.php ``` to run the bot <br>
 Further detail about the library can be seen on the Official Discord-PHP GitHub https://github.com/discord-php/DiscordPHP
