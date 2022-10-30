@@ -4,4 +4,5 @@ composer.lock
 owner.txt
 vendor/
 
-cache/
+cache/*.*
+cache/*
