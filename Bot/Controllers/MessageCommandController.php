@@ -44,11 +44,12 @@ class MessageCommandController {
         $content = $this->content;
         $discord = $this->discord;
         $message = $this->message;
+        $core    = $this->core;
         $class = ucfirst($this->content_pieces[0]);
 
         if(!class_exists($class)){ $this->destroy = true; return;}
 
-        $object = (object) new $class($discord, $message, $content);
+        $object = (object) new $class($discord, $message, $content, $core);
     
         new Logger($object->type, $message);
         $result = self::checkPrivilege($object);

@@ -44,7 +44,7 @@ class MainController {
 
         $discord = $this->discord;
         $activity = new Activity($discord, [
-            'name' => "r!help >> if you need me",
+            'name' => $this->prefix."help >> if you need me",
             //'name' => "With my master's dick",
             'type' => Activity::TYPE_PLAYING,
         ]);
