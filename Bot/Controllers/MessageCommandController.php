@@ -72,7 +72,7 @@ class MessageCommandController {
         $pass = array(true, "");
         switch ($object->privilege) {
             case 'public':
-                $result = array(true, "");
+                $result = $pass;
                 break;
 
             case 'specials':
@@ -88,7 +88,11 @@ class MessageCommandController {
                 if (OWNER == $this->message->author->id) $result = $pass;
                 else $result = array(false, "This command can only be executed by Owner of the Bot");
                 break;
+            
+            default:
 
+                $result = array(false, "the Selected Command doesn't have specified privilege!, Aborting Process");
+                break;
         }
         return $result;
     }
