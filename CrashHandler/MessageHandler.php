@@ -8,11 +8,12 @@ require "CrashHandler/Parts/MessageHandlerPart.php";
 
 
 class MessageHandler extends MessageHandlerPart{
-    public $message, //message object
-            $discord, //discord object
-            $data, // log object
-            $log, // log details
-            $user;    //user object
+     //message object
+    public $message,//discord object
+            $discord, // log object
+            $data, // log details
+            $log, //user object
+            $user;    
 
     public function __construct($discord,$channel, $message, $data, $user, $log){
     newlines("CONSTRUCTOR");

@@ -20,6 +20,8 @@ define('OWNER', $_ENV["OWNER_ID"]);
 define('MAINBOT', $folder);
 define("ROOT", __DIR__."/"); // the root of an discord bot
 define("RED", "0xff0000");
+define("VERSION", "1.6"); // the version of the main bot
+define("CRASH_HANDLER_VERSION", "1.2"); // the version of a crash handler
 
 
 // echo OWNER.PHP_EOL.getkey();

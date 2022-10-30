@@ -2,8 +2,8 @@
 
 
 require MAINBOT."Commands/misc/Ping.php";
-require MAINBOT."Commands/misc/Speedtest.php";
 require MAINBOT."Commands/misc/Eval.php";
+require MAINBOT."Commands/System/addSlashCommand.php";
 use Discord\Parts\Channel\Message;
 
 /**
@@ -24,9 +24,10 @@ class MessageCommandController {
         $this->message = $message;
         $this->content = $content;
         $this->core = $core;
-        $this->content_pieces = explode(" ",$content);
+        $this->content_pieces = explode(" ",$content); // but instead u used this just in case another type of command need it
+        //$this->class = strtok($content); // it'll only get the first elememnt
         self::validation();
-
+        
     }
 
     private function runCustomMethod(){
@@ -74,18 +75,18 @@ class MessageCommandController {
                 break;
 
             case 'specials':
-                foreach ($ids as $id) {
-                    if ($id == $this->message->author->id) $result = $pass;
-                    else $result = array(false, "This command can only be executed by Permitted users");
-                }
+                
+                if (in_array($this->message->author->id, $ids)) $result = $pass;
+                else $result = array(false, "This command can only be executed by Permitted users");
+                
                 if (OWNER == $this->message->author->id) $result = $pass;
                 
                 break;  
             case 'owner':
 
-                    if (OWNER == $this->message->author->id) $result = $pass;
-                    else $result = array(false, "This command can only be executed by Owner of the Bot");
-                    break;
+                if (OWNER == $this->message->author->id) $result = $pass;
+                else $result = array(false, "This command can only be executed by Owner of the Bot");
+                break;
 
         }
         return $result;

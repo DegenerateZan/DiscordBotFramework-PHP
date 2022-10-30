@@ -7,7 +7,7 @@
             $message;
     
 
-    public function __construct($discord, $message, $content){
+    public function __construct($discord, $message){
         $this->discord = $discord;
         $this->message = $message;
         

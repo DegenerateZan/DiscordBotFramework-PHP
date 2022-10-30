@@ -35,7 +35,7 @@ use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use React\EventLoop\Loop;
 
-echo "Initializing PHP bot Framework Crash Handler Assistance Version 1.0\n";
+echo "Initializing PHP bot Framework Crash Handler Assistance Version ".CRASH_HANDLER_VERSION.PHP_EOL;
 
 $discord = new Discord([
     'token' => getkey(),
@@ -49,14 +49,14 @@ $discord->on('ready', function (Discord $discord){
         $discord->on('message', function(Message $message) {
             if ($message->author->id == OWNER and $message->content == "System::kernel->restart(MAINBOT)"){
                 $log = getsystemlog();
-                if ($log[0]){
+                if (!$log[0]){
                     $message->react("❌");
                     $message->reply("Main Bot Instance is still running!")->done(function(Message $m){
                         sleep(2);
                         $m->delete();
                     });
                 } else {
-                    $o =exec("bash scripts/start_init.sh");
+                    $o =exec("php init.php & > /dev/null & echo $! >cache/pidbot.txt");
                     echo $o . PHP_EOL;
                     $message->react("✅");
 

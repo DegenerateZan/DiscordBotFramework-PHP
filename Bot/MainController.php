@@ -2,7 +2,9 @@
 
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
+use Discord\Parts\Interactions\Interaction;
 use Discord\Parts\User\Activity;
+use Discord\WebSockets\Event;
 
 //CommandControllers
 require MAINBOT.'Controllers/MessageCommandController.php';
@@ -19,6 +21,7 @@ require MAINBOT."Extensions/MiniMessageHandler.php";
 class MainController {
     private $discord,
             $ins_key = 0,
+            $obj_ins, // controller objects
             $core;
     public  $prefix;
                   
@@ -50,10 +53,19 @@ class MainController {
     }
 
     public function initMessCommandController($message, $content){
-        $ins[$this->ins_key] = (object) new MessageCommandController( $this->discord, $message, $content, $this->core);
-        if($ins[$this->ins_key]->destroy) $ins[$this->ins_key] = null;
+        $this->obj_ins[$this->ins_key] = (object) new MessageCommandController( $this->discord, $message, $content, $this->core);
+        self::validateDestroyObject();
+    }
+
+    public function initSlashCommandController($interaction){
+        $this->obj_ins[$this->ins_key] = (object) new SlashCommandController( $this->discord, $interaction, $this->core);
+        self::validateDestroyObject();
+    }
+    private function validateDestroyObject(){
+        if($this->obj_ins[$this->ins_key]->destroy) unset($this->obj_ins[$this->ins_key]);
         $this->ins_key++;
     }
+
     private function loadPrefix(){
         $this->prefix = $this->core['settings']->prefix;
     }
@@ -84,5 +96,8 @@ function maincontroller($discord){
         $maincontroller->initMessCommandController($message, $content);
     });
 
+    $discord->on(Event::INTERACTION_CREATE, function(Interaction $interaction) use ($maincontroller){
+        $maincontroller->initSlashCommandController($interaction);
+    });
 
 }

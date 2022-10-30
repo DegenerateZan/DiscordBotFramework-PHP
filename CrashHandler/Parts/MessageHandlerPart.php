@@ -10,7 +10,7 @@ class MessageHandlerPart{
     public $embed,
             $message_builder;
             
-    public function reason(){
+    protected function reason(){
         switch ($this->data->command_type){
             case 'Internal':
                 $reason = "Fatal Error : Kernel Error 1\nBot Mengalami Crash / Serangan Jantung \nsetelah berusaha menjalankan Script PHP kode internal, Harap Hubungi Developer";
@@ -30,16 +30,16 @@ class MessageHandlerPart{
         
     }
 
-    public function embedWarning(){
+    protected function embedWarning(){
         
         $embed = new Embed($this->discord);
         $embed 
                 ->setType("rich")
-                ->setDescription("Crash Handler V 1.2")
+                ->setDescription("Crash Handler V ". CRASH_HANDLER_VERSION)
                 ->setColor("0x070d0e")
                 ->addField([
                     "name"=> "Perintah yang digunakan",
-                    "value"=> "```" .$this->data->command . "```"
+                    "value"=> "```" .str_replace("```","<syntax_highlight>",$this->data->command) . "```"
                 ])->addField(
                 [
                     "name"=> "\u{200b}",
@@ -55,7 +55,7 @@ class MessageHandlerPart{
         $this->embed = $embed;
 
     }
-    public function messbuilder(){
+    protected function messbuilder(){
 
         $message_builder = MessageBuilder::new();
 
@@ -71,9 +71,7 @@ class MessageHandlerPart{
     }
 
       
-        // $message_builder->setContent("SHIT");
         $this->message_builder = $message_builder;
-        echo("endmessbuilder\n");
     }
 }
 

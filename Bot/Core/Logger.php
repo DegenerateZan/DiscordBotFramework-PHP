@@ -37,4 +37,13 @@ class Logger {
     Fstream::Fwrite("cache/system.crash.jsonc", $json);
 
     }
+
+    /**
+     * this Method is to Parse or replace the Leak Token off from a string 
+     * 
+     * @return clean_string
+     */
+    public static function parseToken($string){
+        return str_replace(getkey(), "TOKEN" ,$string);
+    }
 }

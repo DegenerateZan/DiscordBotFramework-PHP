@@ -1,5 +1,5 @@
 #!/bin/bash
-rm ./cache/pidbot.txt
+rm -rf ./cache/pidbot.txt
 php init.php & > /dev/null & 
 #echo $! > cache/pidbot.txt WHY THE FUCK is this simple shits doesnt work
 echo $! > pidbot.txt

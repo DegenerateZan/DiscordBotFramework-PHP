@@ -7,11 +7,13 @@ truncate();
 require MAINBOT."MainController.php";
 
 use Discord\Discord;
+use React\EventLoop\Loop;
 
-echo "Initialize PHP bot Version 1.0\n";
+echo "Initializing PHP bot using Framework Version ".VERSION.PHP_EOL;
 
 $discord = new Discord([
-    'token' => getkey()
+    'token' => getkey(),
+    'loop' => Loop::get()
 ]);
 
 $discord->on('ready', function (Discord $discord){
