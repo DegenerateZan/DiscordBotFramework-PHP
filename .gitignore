@@ -1,5 +1,6 @@
 key.txt
 .env
+.env.test
 composer.lock
 owner.txt
 vendor/

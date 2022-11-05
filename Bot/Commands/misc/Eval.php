@@ -12,7 +12,7 @@ use Discord\Parts\Embed\Embed;
     private $discord,
             $message,
             $content,
-            $log;
+            $log = false;
     
 
     public function __construct(Discord $discord, Message $message){
@@ -56,27 +56,23 @@ use Discord\Parts\Embed\Embed;
 
     }
     public function init(){
+        $this->content = str_replace("```php", "```", $this->content);
         $parsed_code = str_replace(["```", "<?php"],"\n",substr($this->content, strpos($this->content, "```"), strlen($this->content)));
         try{
-            ob_start();
+            
             eval($parsed_code);
-            ob_flush();
-            echo $this->log;
+
         } catch (Exception $e){
+            if (isset($e)) $log = true;
             $loc = "cache/eval.log";
             Fstream::Fwrite($loc, Logger::parseToken($e));
         }
 
         $loc = "cache/eval.log";
-        Fstream::Fwrite($loc, Logger::parseToken($this->log));
-        if(strlen($this->log) > 2000){$messbuilder = MessageBuilder::new()->addFile($loc);}else{ $messbuilder = MessageBuilder::new()->setContent($this->log);}
-        $discord = $this->discord;
-        $this->message->channel->sendMessage($messbuilder)->done(function(Message $message) use ($discord){
-            $loop = $discord->getLoop();
-            $loop->addTimer(10, function() use ($message){
-                $message->delete();
-            });
-        });
+        
+        $messbuilder = MessageBuilder::new()->setContent("Eval Log")->addFile($loc);
+        
+        if($this->log) MiniMessHandler::sendMessWithCountDown($this->message, $messbuilder, 10, $this->discord);
 
     }
 

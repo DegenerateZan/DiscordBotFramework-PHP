@@ -11,7 +11,6 @@ class Logger {
             $last_time_execution;
 
     public function __construct($type, $message){
-    //public function __construct($command_type, $id_channel, $id_channel, $requsted_by){
             $this->command_type = $type;
             $this->command = $message->content;
             $this->id_channel = $message->channel_id;
@@ -39,11 +38,12 @@ class Logger {
     }
 
     /**
-     * this Method is to Parse or replace the Leak Token off from a string 
+     * this Method is to Parse or replace the Leak Token off from a string (make SURE that the string that you wanted to parse is not null otherwise i would crash)
      * 
      * @return clean_string
      */
     public static function parseToken($string){
+        if (is_null($string)) return;
         return str_replace(getkey(), "TOKEN" ,$string);
     }
 }

@@ -39,7 +39,7 @@ class MessageHandlerPart{
                 ->setColor("0x070d0e")
                 ->addField([
                     "name"=> "Perintah yang digunakan",
-                    "value"=> "```" .str_replace("```","<syntax_highlight>",$this->data->command) . "```"
+                    "value"=> "```" .str_replace(["```php", "```"],"<syntax_highlight>",$this->data->command) . "```"
                 ])->addField(
                 [
                     "name"=> "\u{200b}",
