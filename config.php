@@ -21,8 +21,8 @@ define('MAINBOT', $folder);
 define('COMMANDS_DIR', MAINBOT."Commands/");
 define("ROOT", __DIR__."/"); // the root of an discord bot
 define("RED", "0xff0000");
-define("VERSION", "1.7"); // the version of the main bot
-define("CRASH_HANDLER_VERSION", "1.2"); // the version of a crash handler
+define("VERSION", "1.8"); // the version of the main bot
+define("CRASH_HANDLER_VERSION", "1.3"); // the version of a crash handler
 
 
 // echo OWNER.PHP_EOL.getkey();
