@@ -22,7 +22,7 @@ function getsystemlog(){
   
     if(getnumberfromstring($output)) return $fail; // if the process found return fail and skip the send Message Procedure
     else{ 
-        if($json === null) die("Main Bot Process has died!\nBut cannot get the last message Command detail\nThis Died Process can be caused by the Framework Exception or incorrectly Custom Command coding structure doesn't follow framework structure rules! ");
+        if(strlen($json) < 3) die("Main Bot Process has died!\nBut cannot get the last message Command detail\nThis Died Process can be caused by the Framework Exception or incorrectly Custom Command coding structure doesn't follow framework structure rules! ");
         return array(true, $json, $log);
     }
     
@@ -75,6 +75,7 @@ $discord->on('ready', function (Discord $discord){
             $handler = new Handler($discord, $json, $log);
             truncate();
             truncate_log();
+            unset($handler);
             skip:
             
             

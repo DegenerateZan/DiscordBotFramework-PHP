@@ -18,6 +18,7 @@ function getkey(){
 $folder = "Bot/";
 define('OWNER', $_ENV["OWNER_ID"]);
 define('MAINBOT', $folder);
+define('COMMANDS_DIR', MAINBOT."Commands/");
 define("ROOT", __DIR__."/"); // the root of an discord bot
 define("RED", "0xff0000");
 define("VERSION", "1.7"); // the version of the main bot

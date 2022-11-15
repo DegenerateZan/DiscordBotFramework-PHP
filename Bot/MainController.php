@@ -1,23 +1,19 @@
 <?php
 
+require MAINBOT."System/System.php";
+
+require COMMANDS_DIR."MessageCommand.php";
+
+
+    //CommandControllers
+
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\Parts\Interactions\Interaction;
 use Discord\Parts\User\Activity;
 use Discord\WebSockets\Event;
 
-//CommandControllers
-require MAINBOT.'Controllers/MessageCommandController.php';
-require MAINBOT.'Controllers/SlashCommandController.php';
-// Core
-require MAINBOT.'Core/Logger.php';
-require MAINBOT.'Core/Time.php';
-// Extentsions
-require MAINBOT."Extensions/Fstream.php";
-require MAINBOT."Extensions/MiniMessageHandler.php";
 
-
- 
 class MainController {
     private $discord,
             $ins_key = 0,
@@ -35,8 +31,8 @@ class MainController {
     }
     private function setCore(){
         $this->core['time'] = (object) new Time();
-        $this->core['settings'] = (object) json_decode(file_get_contents(MAINBOT."Config/botsettings.json"));
-        //Fstream::Fwrite(ROOT."cache/pidbot.txt",getmypid()); //im mistaken that i thought that the pid is changed after the disocord event loop is executed
+        $this->core['settings'] = (object) ConfigHandler::loadAndGetConfig();
+
         if (!isset($this->core['settings']->prefix)) throw new Exception("Cannot Get the default Prefix!\n");
         
     }

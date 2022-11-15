@@ -69,7 +69,7 @@ function createcommand($argv){
 }
 
 function serve(){
-    exec("start.sh");
+    exec("bash start.sh");
 }
 
 function help(){

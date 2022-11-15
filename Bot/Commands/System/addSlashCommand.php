@@ -4,21 +4,11 @@ use Discord\Discord;
 use Discord\Parts\Interactions\Command\Command;
 use Discord\Parts\Channel\Message;
 
-class addSlashCommand{
+class addSlashCommand extends MessageCommand {
 
     public  $type = "Internal",
-            $privilege = "owner",
-            $permitted_cmd_type = "message";
-    private $discord,
-            $message,
-            $content;
+            $privilege = "owner";
 
-    public function __construct(Discord $discord, Message $message, $content){
-        $this->discord = $discord;
-        $this->message = $message;
-        $this->content = $content;
-        //your custom constructor here
-    }
 
     public function init(){
         // the condition if the new added command is global or guild only
@@ -28,7 +18,7 @@ class addSlashCommand{
         $desc = get_string_between($this->content, '"', '"');
         if (strlen($name) < 1) {MiniMessHandler::sendMessWithCountDown($this->message, "The name of the new Command cannot be Empty!", 6, $this->discord);return;}
         if($global){
-            $command = new Command($this->discord, ['name' => "$name", 'description' => "$desc"]);
+            $command = new Command($this->discord, ['name' => "$name", 'description' => "$desc", "type" => 1]);
             $this->discord->application->commands->save($command);
             MiniMessHandler::sendMessWithCountDown($this->message, "The new Global command has been added", 6, $this->discord);
         } else {

@@ -1,5 +1,6 @@
 <?php
 
+use Discord\Builders\MessageBuilder;
 use Discord\Discord;
 use Discord\Parts\Interactions\Interaction;
 
@@ -22,6 +23,8 @@ class SlashCommandController{
         self::validation();
     }
     private function validation(){
-        var_dump($this->interaction);
+        // $m = new MessageBuilder();
+        // $m->setContent("um.. hello...");
+        // $this->interaction->respondWithMessage($m);
     }
 }

@@ -46,4 +46,11 @@ class Logger {
         if (is_null($string)) return;
         return str_replace(getkey(), "TOKEN" ,$string);
     }
+
+    public static function jsonLogDump(object $json, $filename = "json.dump.log"){
+        $json = json_encode($json, JSON_PRETTY_PRINT);
+
+        $loc = "./cache/". $filename;
+        Fstream::Fwrite($loc, $json);
+    }
 }

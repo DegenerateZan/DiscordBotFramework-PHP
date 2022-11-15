@@ -5,14 +5,12 @@ use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\Parts\Embed\Embed;
 
- class Evalphp{
+
+ class Evalphp extends MessageCommand {
     public  $type = "External",
             $privilege = "owner",
             $permitted_cmd_type = "message";
-    private $discord,
-            $message,
-            $content,
-            $log = false;
+    private $log = false;
     
 
     public function __construct(Discord $discord, Message $message){
@@ -34,6 +32,7 @@ use Discord\Parts\Embed\Embed;
         $debug = file_get_contents($cacheloc);
         $messbuilder = MessageBuilder::new();
         $embed = new Embed($this->discord);
+        
         $embed->setColor(RED)->setDescription("Debug Safe Mode : Executing Raw PHP command has Been executed!\nMencoba Memuntahkan log
         ``` $debug ```");
         $messbuilder->addEmbed($embed);
@@ -57,6 +56,7 @@ use Discord\Parts\Embed\Embed;
     }
     public function init(){
         $this->content = str_replace("```php", "```", $this->content);
+        echo $this->content;
         $parsed_code = str_replace(["```", "<?php"],"\n",substr($this->content, strpos($this->content, "```"), strlen($this->content)));
         try{
             

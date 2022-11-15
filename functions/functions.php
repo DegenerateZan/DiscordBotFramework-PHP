@@ -21,6 +21,7 @@ function cutselected($string,$selected) {
 }
 
 function get_string_between($string, $start, $end){
+    if (is_null($start) || is_null($end)) return $string;
     $string = ' ' . $string;
     $ini = strpos($string, $start);
     if ($ini == 0) return '';
@@ -60,4 +61,28 @@ function truncate(){
 
 function truncate_log(){
     fwrite(fopen("cache/system.crash.log","w")," ");
+}
+
+function return_var_dump(...$args): string
+{
+    ob_start();
+    try {
+        var_dump(...$args);
+        return ob_get_clean();
+    } catch (\Throwable $ex) {
+        // PHP8 ArgumentCountError for 0 arguments, probably..
+        // in php<8 this was just a warning
+        ob_end_clean();
+        throw $ex;
+    }
+}
+
+
+function array_to_concat($arr, $needle = ", "){
+if (!is_array($arr)) return $arr;
+$string = implode(", ", $arr);
+
+return $string;
+
+
 }
