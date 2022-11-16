@@ -1,7 +1,7 @@
 <?php
 
 require MAINBOT."System/System.php";
-
+require MAINBOT."Include/include.php";
 require COMMANDS_DIR."MessageCommand.php";
 
 
