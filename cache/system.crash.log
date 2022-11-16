@@ -1,1 +1,8 @@
  [16-Nov-2022 14:35:10 Asia/Jakarta] PHP Notice:  fwrite(): Write of 86 bytes failed with errno=5 Input/output error in /media/sf_project/discord-bot/DiscordBotFramework-PHP/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 159
+[16-Nov-2022 22:11:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "MessageCommand" not found in D:\project\discord-bot\DiscordBotFramework-PHP\Bot\Commands\misc\Ping.php:5
+Stack trace:
+#0 D:\project\discord-bot\DiscordBotFramework-PHP\Bot\Include\include.php(3): require()
+#1 D:\project\discord-bot\DiscordBotFramework-PHP\Bot\MainController.php(4): require('D:\\project\\disc...')
+#2 D:\project\discord-bot\DiscordBotFramework-PHP\init.php(7): require('D:\\project\\disc...')
+#3 {main}
+  thrown in D:\project\discord-bot\DiscordBotFramework-PHP\Bot\Commands\misc\Ping.php on line 5
