@@ -7,7 +7,7 @@ if(!file_exists(".env")) die(".env file does not exist!,\nplease copy the or ren
 
 
 
-$log = dirname(__FILE__)."./cache/system.crash.log";
+$log = "cache/system.crash.log";
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();

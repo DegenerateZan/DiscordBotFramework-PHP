@@ -58,6 +58,8 @@ class MessageCommandController {
 
         $object = (object) new $class($discord, $message, $content, $core);
     
+        if(!is_subclass_of($object, 'MessageCommand')){ $this->destroy = true; return;}
+
         new Logger($object->type, $message);
         $result = self::checkPrivilege($object);
         $this->object = $object;

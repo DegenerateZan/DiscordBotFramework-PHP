@@ -1,1 +1,1 @@
- 
+ [16-Nov-2022 14:35:10 Asia/Jakarta] PHP Notice:  fwrite(): Write of 86 bytes failed with errno=5 Input/output error in /media/sf_project/discord-bot/DiscordBotFramework-PHP/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 159
