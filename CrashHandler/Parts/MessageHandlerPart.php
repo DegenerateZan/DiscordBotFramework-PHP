@@ -64,7 +64,7 @@ class MessageHandlerPart{
             $message_builder->setContent($this->reason)->addEmbed($this->embed);
         }else{
             $this->log = str_replace(getkey(), "TOKEN" ,$this->log);
-            $cache_loc = "cache/temp/system.crash.log";
+            $cache_loc = "cache/system.crash.log";
             Fstream::Fwrite($cache_loc, $this->log);
             $message_builder->setContent("mencoba memuntahkan crash log")->addFile($cache_loc);
             $message_builder->setContent($this->reason)->addEmbed($this->embed);
