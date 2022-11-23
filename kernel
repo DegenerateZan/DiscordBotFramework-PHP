@@ -7,15 +7,7 @@ if(!isset($argv[1])){
 }
 echo "Initializing Discord Bot kernel Version Alpha 0.0.4\n";
 
-function unset_array_merge($arr, $key){
-    unset($arr[$key]);
-    return array_merge($arr);
-   
-}
-function dd($stream){
-    var_dump($stream);
-    die;
-}
+require "System/functions/functions.php";
 
 $argv = unset_array_merge($argv, 0);
 
@@ -69,7 +61,21 @@ function createcommand($argv){
 }
 
 function serve(){
-    exec("bash start.sh");
+    echo "starting";
+    //exec('echo "'. getcwd() .'" > System/core/temp');
+    //sleep(3);
+    file_put_contents("./.temp1", "<?php\n\n require 'System/init/init.php'; ");
+    file_put_contents("./.temp2", "<?php\n\n require 'System/init/initCrashHandler.php'; ");
+
+    //exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+    // exec(sprintf("%s > %s 2>&1 & echo $! >> %s", "php System/init/init.php" , "cache/stdout.mainbot.log", "cache/pidbot.txt"));
+    // //exec(sprintf("%s & echo $! > %s", "php System/init/init.php", "cache/pidbot.txt"));
+    // exec(sprintf("%s", "php System/init/initCrashHandler.php"));
+
+}
+
+function kill(){
+    exec("bash System/scripts/kill_all_php.sh");
 }
 
 function help(){

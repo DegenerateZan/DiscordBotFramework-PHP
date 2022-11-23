@@ -5,6 +5,9 @@ composer.lock
 owner.txt
 vendor/
 
+.temp1
+.temp2
+
 not_for_upload
 
 cache/*.*

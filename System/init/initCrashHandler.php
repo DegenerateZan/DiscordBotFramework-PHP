@@ -1,32 +1,13 @@
 <?php
+chdir(dirname(dirname(__DIR__)));
 
-require "config.php";
 
+require "System/core/config.php";
+require ROOT."CrashHandler/LoadSystemLog.php";
 
-function getsystemlog(){
-   
-    $json = fread(fopen("cache/system.crash.jsonc", "r"), 80000);
-    $log = fread(fopen("cache/system.crash.log", "r"), 200000);
+$systemlog = new LoadSystemLog;
 
-    $fail = array(false, NULL, NULL); // nilai gagal
-    
-    $pid = (int) fread(fopen("cache/pidbot.txt", 'r'),1000);
-
-    if(!$pid or $log === null) return $fail;
-    $pid = $pid - 1;
-    //jika process mati 
-    $output = exec("ps -p $pid");
-    
-    // if(getnumberfromstring($output)) echo "\nNUMBER FOUND\n";
-    // else echo "\nNUMBER NOT FOUND\n";
-  
-    if(getnumberfromstring($output)) return $fail; // if the process found return fail and skip the send Message Procedure
-    else{ 
-        if(strlen($json) < 3) die("Main Bot Process has died!\nBut cannot get the last message Command detail\nThis Died Process can be caused by the Framework Exception or incorrectly Custom Command coding structure doesn't follow framework structure rules! ");
-        return array(true, $json, $log);
-    }
-    
-}
+global $systemlog;
 
 require 'CrashHandler/Handler.php';
 require 'CrashHandler/MessageHandler.php';
@@ -44,12 +25,16 @@ $discord = new Discord([
 
 $discord->on('ready', function (Discord $discord){
     echo "Crash Handler Siap Digunakan";
-        
+    
+    global $systemlog;
+
+
         $discord->loop;
         $discord->on('message', function(Message $message) {
             if ($message->author->id == OWNER and $message->content == "System::kernel->restart(MAINBOT)"){
-                $log = getsystemlog();
-                if (!$log[0]){
+                global $systemlog;
+                
+                if (!$systemlog->checkShell()){
                     $message->react("❌");
                     $message->reply("Main Bot Instance is still running!")->done(function(Message $m){
                         sleep(2);
@@ -65,13 +50,11 @@ $discord->on('ready', function (Discord $discord){
         });
         
         $loop = $discord->getLoop();
-        $loop->addPeriodicTimer(3,function () use ($discord) {
-            exec("rm -rf cache/temp/*.*");
-            $log = getsystemlog();
+        $loop->addPeriodicTimer(3,function () use ($discord, $systemlog) {
          
-            if ($log[0] === FALSE) goto skip;
+            if ($systemlog->checkShell() === FALSE) goto skip;
             
-            $json = $log[1]; $log = $log[2];
+            $json = $systemlog->getLog()[0]; $log = $systemlog->getLog()[1];
             $handler = new Handler($discord, $json, $log);
             truncate();
             truncate_log();

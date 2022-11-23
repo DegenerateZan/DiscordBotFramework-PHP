@@ -78,6 +78,12 @@ function return_var_dump(...$args): string
 }
 
 
+function unset_array_merge($arr, $key){
+    unset($arr[$key]);
+    return array_merge($arr);
+   
+}
+
 function array_to_concat($arr, $needle = ", "){
 if (!is_array($arr)) return $arr;
 $string = implode(", ", $arr);

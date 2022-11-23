@@ -1,8 +1,10 @@
 <?php
+chdir(dirname(dirname(__DIR__)));
 
-include 'config.php';
+include 'System/core/config.php';
 
 truncate();
+truncate_log();
 
 require MAINBOT."MainController.php";
 
