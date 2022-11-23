@@ -22,3 +22,8 @@ not supported  - 1 . slash command (soon)<br>
 <b>in windows this bot DOES NOT SUPPORT Crash Handler feature and the execute kernel script <br>
 and can only run independent without crash handler feature using </b> <br>``` php init.php ``` to run the bot <br>
 Further detail about the library can be seen on the Official Discord-PHP GitHub https://github.com/discord-php/DiscordPHP
+
+## Legal
+
+This tool can be freely copied, modified, altered, distributed without any attribution whatsoever. However, if you feel
+like this tool deserves an attribution, mention it. It won't hurt anybody
