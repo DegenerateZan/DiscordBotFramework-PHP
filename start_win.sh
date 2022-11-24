@@ -3,7 +3,7 @@
 # requirement to use this on windows  ! use GIT BASH
 rm -rf cache/pidbot.txt
 
-php kernel serve
+#php kernel serve
 
 php Framework/init/init.php & > /dev/null & 
 echo $! > pidbot
