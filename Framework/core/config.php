@@ -3,7 +3,7 @@
 
 $dir = dirname(dirname(__DIR__));
 
-include 'System/functions/functions.php';
+include 'Framework/functions/functions.php';
 
 include 'vendor/autoload.php';
 if(!file_exists(".env")) die(".env file does not exist!,\nplease copy the or rename .env.example and fill the data!");

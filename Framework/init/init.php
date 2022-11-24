@@ -1,7 +1,7 @@
 <?php
 chdir(dirname(dirname(__DIR__)));
 
-include 'System/core/config.php';
+include 'Framework/core/config.php';
 
 truncate();
 truncate_log();

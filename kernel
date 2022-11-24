@@ -1,91 +1,9 @@
 <?php
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') die("Windows Platform Detected, sorry this command only supported on linux");
-if(!isset($argv[1])){
-    echo "please specify the parameters!";
-    die;
-}
-echo "Initializing Discord Bot kernel Version Alpha 0.0.4\n";
 
-require "System/functions/functions.php";
 
-$argv = unset_array_merge($argv, 0);
+require 'Framework/kernel/Kernel.php';
+require 'Framework/functions/functions.php';
 
-function createcommand($argv){
-    $unixfirstdir = exec("pwd");
-    $firstdir = __DIR__;
-
-    $exec = null;
-    
-    $unixtargetdir = "Bot/Commands";
-
-    $targetdir = "Bot\Commands";
-    echo $targetdir."\n";
-    chdir("Bot\Commands");
-    $create_c = null; $create_p = null; $on_c = null;
-    foreach($argv as $arg){
-        switch ($arg) {
-            case 'createcommand':
-                $key = array_search('createcommand',$argv) + 1;
-                $create_c = "touch " . $argv[$key] . ".php\n echo '<?php\n class $argv[$key]{' >> " . $argv[$key] . ".php";
-                break;
-            case '--with-part':
-                $key = array_search('createcommand',$argv) + 1;
-                $create_p = "mkdir Parts\ncd Parts\ntouch " . $argv[$key] . "Part.php";
-
-                break;
-            case "--on-category":
-                $key = array_search('--on-category',$argv) + 1;
-                $on_c = "mkdir " . $argv[$key] . "\ncd " . $argv[$key];
-                break;
-            default:
-               
-                
-            
-        }
-    }
-
-    
-    $exec .= "$on_c\n$create_c\n$create_p";
-
-    chdir($firstdir);
-    $file = "cache/kernel/kernelbatch.sh";
-    file_put_contents($file, "#!/bin/bash\n".$exec);
-
-    $sript = "bash $unixfirstdir/" ."$file";
-    chdir($targetdir);
-    exec($sript);
-        //exec("cat $firstdir/cache/kernel/construct.txt >> $firstdir/cache/kernel/kernelbatch.sh");
-
-    
-}
-
-function serve(){
-    echo "starting";
-    //exec('echo "'. getcwd() .'" > System/core/temp');
-    //sleep(3);
-    file_put_contents("./.temp1", "<?php\n\n require 'System/init/init.php'; ");
-    file_put_contents("./.temp2", "<?php\n\n require 'System/init/initCrashHandler.php'; ");
-
-    //exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
-    // exec(sprintf("%s > %s 2>&1 & echo $! >> %s", "php System/init/init.php" , "cache/stdout.mainbot.log", "cache/pidbot.txt"));
-    // //exec(sprintf("%s & echo $! > %s", "php System/init/init.php", "cache/pidbot.txt"));
-    // exec(sprintf("%s", "php System/init/initCrashHandler.php"));
-
-}
-
-function kill(){
-    exec("bash System/scripts/kill_all_php.sh");
-}
-
-function help(){
-    echo "Bot kernel Version Alpha 0.0.4 Help lists
-    
-    Kernel Command lists :
-    [] <- ? inside of a square brackets example below its an optional parameter (do not add the brackets!)
-
-    1 . create a command  : 'php kernel createcommand <command_name> [ --with-part ] [--on-category <category_name>]'";
-}
-//var_dump($argv);
-call_user_func($argv[0], $argv);
+new Kernel($argv);
 

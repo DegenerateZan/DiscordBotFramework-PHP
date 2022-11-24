@@ -92,3 +92,23 @@ return $string;
 
 
 }
+
+function colorLog($str, $type = 'i'){
+    switch ($type) {
+        case 'e': //error
+            return "\033[31m$str \033[0m";
+        break;
+        case 's': //success
+            return "\033[32m$str \033[0m";
+        break;
+        case 'w': //warning
+            return "\033[33m$str \033[0m";
+        break;  
+        case 'i': //info
+            return "\033[36m$str \033[0m";
+        break;      
+        default:
+        # code...
+        break;
+    }
+}

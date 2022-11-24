@@ -2,7 +2,7 @@
 chdir(dirname(dirname(__DIR__)));
 
 
-require "System/core/config.php";
+require "Framework/core/config.php";
 require ROOT."CrashHandler/LoadSystemLog.php";
 
 $systemlog = new LoadSystemLog;

@@ -2,26 +2,21 @@
 
 
 class LoadSystemLog {
-    const   Fail = array(false, NULL, NULL); // nilai gagal
     private $log,
             $pid,
             $json;
 
     public function getLog(){
-        self::loadLog();
         return array($this->json, $this->log, $this->pid);
     }
 
-    private function loadLog(){
-        $this->json = fread(fopen("cache/system.crash.jsonc", "r"), 80000);
-        $this->log = fread(fopen("cache/system.crash.log", "r"), 200000);
 
-    }
-    
 
     private function validate($output){
-        $json = fread(fopen("cache/system.crash.jsonc", "r"), 80000);
-
+        $stream = fopen("cache/system.crash.jsonc", "r");
+        if (!$stream) return false;
+        $json = fread($stream, 80000);
+        $this->json = $json;
         if(getnumberfromstring($output)) return false; // if the process found return fail and skip the send Message Procedure
         $string = "Main Bot Process has died!\n
                 But cannot get the last message Command detail\n
@@ -38,8 +33,11 @@ class LoadSystemLog {
       
 
         $pid = (int) fread(fopen("cache/pidbot.txt", 'r'),1000);
-        if(!$pid or $this->log === null) return false;
-        $pid = $pid - 1;
+        $this->pid = $pid;
+        $log = fread(fopen("cache/system.crash.log", "r"), 200000);
+        $this->log = $log;
+        if($pid == 0 or $log === null) return false;
+        //$pid = $pid - 1; // use this if you use git bash
         //jika process mati 
         $output = exec("ps -p $pid");
         return self::validate($output);
