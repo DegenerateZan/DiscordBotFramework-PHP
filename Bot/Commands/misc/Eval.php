@@ -12,14 +12,6 @@ use Discord\Parts\Embed\Embed;
             $permitted_cmd_type = "message";
     private $log = false;
     
-
-    public function __construct(Discord $discord, Message $message){
-        $this->discord = $discord;
-        $this->message = $message;
-        $this->content = $message->content;
-      
-        
-    }
     public function safemode(){
         $parsed_code = str_replace("```","\n",substr($this->content, strpos($this->content, "```"), strlen($this->content)));
 
@@ -54,6 +46,17 @@ use Discord\Parts\Embed\Embed;
         
 
     }
+
+    public function savemode(){
+        
+        $mess = "Typo Parameter Detected!
+        ```
+        r!evalphp savemode
+                  ^^^^^^^ -------> you mean 'safemode'?
+        ```";
+        MiniMessHandler::sendMess($this->message, $mess);
+    }
+
     public function init(){
         $this->content = str_replace("```php", "```", $this->content);
         echo $this->content;

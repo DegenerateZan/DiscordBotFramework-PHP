@@ -41,7 +41,7 @@ $discord->on('ready', function (Discord $discord){
                         $m->delete();
                     });
                 } else {
-                    $o =exec("php init.php & > /dev/null & echo $! >cache/pidbot.txt");
+                    $o =shell_exec("php kernel serve --force");
                     echo $o . PHP_EOL;
                     $message->react("✅");
 
