@@ -4,7 +4,6 @@
     use Discord\Discord;
     use Discord\Parts\Channel\Message;
     
-    use Spatie\Async\Pool;
 
 
 
@@ -22,7 +21,6 @@ abstract class MessageCommand {
                 $content,
                 $core;
     
-    protected   $pool; // the asyncronize object in case it need it
 
     public function __construct(Discord $discord, Message $message, $content, $core){
         $this->discord = $discord;
@@ -31,7 +29,7 @@ abstract class MessageCommand {
         $this->core    = $core;
 
 
-        $this->pool = Pool::create();
+        
 
     
     }
