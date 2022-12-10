@@ -66,16 +66,18 @@ use Discord\Parts\Embed\Embed;
             eval($parsed_code);
 
         } catch (Exception $e){
-            if (isset($e)) $log = true;
-            $loc = "cache/eval.log";
-            Fstream::Fwrite($loc, Logger::parseToken($e));
+
         }
+
+        if (!isset($this->log)) return;
+        $loc = "cache/eval.log";
+        Fstream::Fwrite($loc, Logger::parseToken($this->log));
 
         $loc = "cache/eval.log";
         
         $messbuilder = MessageBuilder::new()->setContent("Eval Log")->addFile($loc);
         
-        if($this->log) MiniMessHandler::sendMessWithCountDown($this->message, $messbuilder, 10, $this->discord);
+        MiniMessHandler::sendMessWithCountDown($this->message, $messbuilder, 15, $this->discord);
 
     }
 
