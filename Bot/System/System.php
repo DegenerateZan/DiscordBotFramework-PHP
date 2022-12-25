@@ -1,6 +1,8 @@
 <?php
 
-
+    // global variables
+    $core;
+    $maincontroller;
     // Event
     require MAINBOT."System/Event/interaction.php";
     require MAINBOT."System/Event/message.php";

@@ -1,6 +1,5 @@
 <?php
 
-$maincontroller;
 function ready($discord){
         global $maincontroller;
 

@@ -33,7 +33,8 @@ class MainController {
         $this->core['settings'] = (object) ConfigHandler::loadAndGetConfig();
         $this->core['voiceclient'] = null; 
         if (!isset($this->core['settings']->prefix)) throw new Exception("Cannot Get the default Prefix!\n");
-        
+        global $core;
+        $core = $this->core;
     }
     private function setPresence(){
 
