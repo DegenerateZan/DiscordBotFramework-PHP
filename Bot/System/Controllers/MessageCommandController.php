@@ -29,6 +29,8 @@ class MessageCommandController {
 
     private function runCustomMethod(){
 
+        if(!array_key_exists(1,$this->content_pieces)) $this->content_pieces[1] = ""; // to prevent the error of an undefined array key
+
         if(!method_exists($this->object, $this->content_pieces[1])) $this->object->init(); // to call the default method if the method to invoke its not specified
         if (method_exists($this->object, $this->content_pieces[1]))call_user_func(array($this->object, $this->content_pieces[1]));  //the opposite, if its default method and specified also doesn't exist, destroy the Message Controller Instance
         else $this->destroy = true;
