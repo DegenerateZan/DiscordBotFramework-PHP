@@ -28,23 +28,10 @@ class MessageCommandController {
     }
 
     private function runCustomMethod(){
-        $execution_time = null;
-        if(ConfigHandler::loadAndGetConfig()->debugmode == true) $execution_time = ExecutionTime::new(); 
-
-
-        if(!array_key_exists(1,$this->content_pieces)) $this->content_pieces[1] = ""; // to prevent the error of an undefined array key
 
         if(!method_exists($this->object, $this->content_pieces[1])) $this->object->init(); // to call the default method if the method to invoke its not specified
         if (method_exists($this->object, $this->content_pieces[1]))call_user_func(array($this->object, $this->content_pieces[1]));  //the opposite, if its default method and specified also doesn't exist, destroy the Message Controller Instance
         else $this->destroy = true;
-
-        if(!is_null($execution_time)) self::sendExecutionTime($execution_time->getTimeExecution());
-    }
-
-    private function sendExecutionTime($execution_time){
-        $embed = new Embed($this->discord);
-        $embed->setDescription($execution_time)->setColor(RED);
-        MiniMessHandler::sendMess($this->message,MessageBuilder::new()->addEmbed($embed));
 
     }
 

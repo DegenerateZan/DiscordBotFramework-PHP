@@ -9,7 +9,6 @@ require MAINBOT."Include/include.php";
 
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
-use Discord\Parts\Interactions\Interaction;
 use Discord\Parts\User\Activity;
 use Discord\WebSockets\Event;
 
@@ -32,7 +31,7 @@ class MainController {
     private function setCore(){
         $this->core['time'] = (object) new Time();
         $this->core['settings'] = (object) ConfigHandler::loadAndGetConfig();
-
+        $this->core['voiceclient'] = null; 
         if (!isset($this->core['settings']->prefix)) throw new Exception("Cannot Get the default Prefix!\n");
         
     }
@@ -67,33 +66,5 @@ class MainController {
     }
 
 
-
-}
-$maincontroller;
-function maincontroller($discord){
-        global $maincontroller;
-
-
-    echo "Discord Bot Siap Bertugas!\n";
-
-    if (!isset($maincontroller)) $maincontroller = new MainController($discord);
-    $discord->on('message', function(Message $message){
-        global $maincontroller;
-        $content = $message-> content;
-        $condition = strpos($content, $maincontroller->prefix);
-        if ($condition != 0 || $condition === false) return;
-
-        
-        
-        
-        echo "\n++++++++++++++++ MESSAGE COMMAND PREFIX DETECTED, EXECUTING COMMAND ++++++++++++++++\n";            
-
-        $content = trim($content, $maincontroller->prefix);
-        $maincontroller->initMessCommandController($message, $content);
-    });
-
-    $discord->on(Event::INTERACTION_CREATE, function(Interaction $interaction) use ($maincontroller){
-        $maincontroller->initSlashCommandController($interaction);
-    });
 
 }

@@ -19,7 +19,7 @@ $discord = new Discord([
 ]);
 
 $discord->on('ready', function (Discord $discord){
-    maincontroller($discord);
+    ready($discord);
 });
 $discord->run();
 

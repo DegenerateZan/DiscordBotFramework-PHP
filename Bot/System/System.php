@@ -1,8 +1,11 @@
 <?php
 
 
-    // require MAINBOT.
-    //CommandControllers
+    // Event
+    require MAINBOT."System/Event/interaction.php";
+    require MAINBOT."System/Event/message.php";
+    require MAINBOT."System/Event/ready.php";
+    // CommandControllers
     require MAINBOT.'System/Controllers/MessageCommandController.php';
     require MAINBOT.'System/Controllers/SlashCommandController.php';
     // Core
@@ -17,4 +20,6 @@
     require MAINBOT.'Extensions/Fstream.php';
     require MAINBOT.'Extensions/MiniMessageHandler.php';
     require MAINBOT.'Extensions/Warning.php';
+    // require MAINBOT.
+    // require MAINBOT."System/";
 
